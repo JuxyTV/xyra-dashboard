@@ -5,7 +5,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 const API_URL = process.env.API_URL || "http://46.247.108.191:30141";
 const API_SECRET_KEY = process.env.API_SECRET_KEY;
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, context: { params: Promise<{ id: string }> }) {
+  const { id } = await context.params;
   const session = await getServerSession(authOptions);
   // @ts-ignore
   if (!session || !session.accessToken) {
@@ -24,7 +25,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
   }
 
   const guilds = await discordRes.json();
-  const targetGuild = guilds.find((g: any) => g.id === params.id);
+  const targetGuild = guilds.find((g: any) => g.id === id);
   
   // Check Administrator (0x8) or Manage Server (0x20)
   if (!targetGuild || ((targetGuild.permissions & 8) !== 8 && (targetGuild.permissions & 32) !== 32)) {
@@ -33,7 +34,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
 
   // 2. Forward request to Bot API
   try {
-    const botRes = await fetch(`${API_URL}/api/guilds/${params.id}/config`, {
+    const botRes = await fetch(`${API_URL}/api/guilds/${id}/config`, {
       headers: { Authorization: `Bearer ${API_SECRET_KEY}` }
     });
     const data = await botRes.json();
@@ -43,7 +44,8 @@ export async function GET(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function POST(request: Request, { params }: { params: { id: string } }) {
+export async function POST(request: Request, context: { params: Promise<{ id: string }> }) {
+  const { id } = await context.params;
   const session = await getServerSession(authOptions);
   // @ts-ignore
   if (!session || !session.accessToken) {
@@ -59,7 +61,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
   if (!discordRes.ok) return NextResponse.json({ error: "Failed to verify permissions" }, { status: 403 });
 
   const guilds = await discordRes.json();
-  const targetGuild = guilds.find((g: any) => g.id === params.id);
+  const targetGuild = guilds.find((g: any) => g.id === id);
   
   if (!targetGuild || ((targetGuild.permissions & 8) !== 8 && (targetGuild.permissions & 32) !== 32)) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
@@ -70,7 +72,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
 
   // Forward to Bot API
   try {
-    const botRes = await fetch(`${API_URL}/api/guilds/${params.id}/config`, {
+    const botRes = await fetch(`${API_URL}/api/guilds/${id}/config`, {
       method: "POST",
       headers: { 
         "Content-Type": "application/json",
