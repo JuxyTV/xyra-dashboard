@@ -39,8 +39,8 @@ export async function GET(request: Request, context: { params: Promise<{ id: str
     });
     const data = await botRes.json();
     return NextResponse.json(data);
-  } catch (error) {
-    return NextResponse.json({ error: "Bot API offline" }, { status: 502 });
+  } catch (error: any) {
+    return NextResponse.json({ error: `Bot API offline: ${error.message} (URL: ${API_URL})` }, { status: 502 });
   }
 }
 
@@ -82,7 +82,7 @@ export async function POST(request: Request, context: { params: Promise<{ id: st
     });
     const data = await botRes.json();
     return NextResponse.json(data);
-  } catch (error) {
-    return NextResponse.json({ error: "Bot API offline" }, { status: 502 });
+  } catch (error: any) {
+    return NextResponse.json({ error: `Bot API offline: ${error.message} (URL: ${API_URL})` }, { status: 502 });
   }
 }
