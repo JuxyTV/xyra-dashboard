@@ -138,6 +138,20 @@ export const dict: Record<string, Record<string, string>> = {
     confirm: "Save",
     create: "Create",
     modify: "Modify",
+    // Giveaways
+    tab_giveaways: "Giveaways",
+    gw_title: "Giveaways",
+    gw_desc: "Manage and create giveaways for your server.",
+    gw_create: "Create Giveaway",
+    gw_empty: "No active giveaways.",
+    gw_prize: "Prize",
+    gw_description: "Description",
+    gw_duration: "Duration (minutes)",
+    gw_winners: "Number of winners",
+    gw_channel: "Channel",
+    gw_req_role: "Required Role",
+    gw_req_level: "Required Level",
+    gw_launch: "Launch Giveaway",
   },
   fr: {
     back: "Retour aux Serveurs",
@@ -265,6 +279,20 @@ export const dict: Record<string, Record<string, string>> = {
     confirm: "Enregistrer",
     create: "Créer",
     modify: "Modifier",
+
+    tab_giveaways: "Giveaways",
+    gw_title: "Giveaways",
+    gw_desc: "Gère et crée des giveaways pour ton serveur.",
+    gw_create: "Créer un Giveaway",
+    gw_empty: "Aucun giveaway actif.",
+    gw_prize: "Lot",
+    gw_description: "Description",
+    gw_duration: "Durée (minutes)",
+    gw_winners: "Nombre de gagnants",
+    gw_channel: "Salon",
+    gw_req_role: "Rôle requis",
+    gw_req_level: "Niveau requis",
+    gw_launch: "Lancer le Giveaway",
   }
 };
 
