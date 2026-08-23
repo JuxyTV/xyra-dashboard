@@ -14,11 +14,15 @@ export default function GuildDashboardPage() {
 
   useEffect(() => {
     fetch(`/api/bot/guilds/${id}/config`)
-      .then(res => {
-        if (!res.ok) throw new Error("Failed to load config or Bot offline.");
+      .then(async res => {
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(`API Error (${res.status}): ${text}`);
+        }
         return res.json();
       })
       .then(data => {
+        if (data.error) throw new Error("Bot Error: " + data.error);
         setConfig(data);
         setLoading(false);
       })
