@@ -3,8 +3,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import * as http from "http";
 
-const API_URL = process.env.API_URL || "http://46.247.108.191:30141";
-const API_SECRET_KEY = process.env.API_SECRET_KEY;
+const API_URL = (process.env.API_URL || "http://46.247.108.191:30141").trim();
+const API_SECRET_KEY = (process.env.API_SECRET_KEY || "").trim();
 
 // Helper function to make native HTTP requests bypassing Next.js fetch
 function makeHttpRequest(url: string, method: string, body?: any): Promise<any> {
