@@ -213,7 +213,7 @@ export default function GuildDashboardPage() {
                       className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition resize-none"
                       placeholder="Bienvenue {user} sur le serveur !"
                     />
-                    <p className="text-xs text-gray-500">Variables dispo: `{user}`, `{server}`.</p>
+                    <p className="text-xs text-gray-500">Variables dispo: {"{user}"}, {"{server}"}.</p>
                   </div>
                 </div>
               </div>
